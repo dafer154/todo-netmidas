@@ -25,7 +25,6 @@ export class Home extends Component {
 
     filterTodo = (status) => {
         if (status === 'pending') {
-
             const filterStatus = this.state.todosAll.filter(todo => todo.status === status)
             return this.setState({ todosPending: filterStatus, status })
         }
@@ -38,32 +37,41 @@ export class Home extends Component {
     }
 
     callBackFunction = (status, todo) => {
-        console.log('tiki');
-        console.log(status);
-        console.log(todo);
-        console.log("nooo", todo);
         if (status === 'pending') {
             const idTodo = todo.id
             const filterStatus = this.state.todosDone.filter(todoFilter => todoFilter.id !== idTodo);
-            const filterPending = this.state.todosAll.filter(todo => todo.status === status);
-            
-            console.log("todooo", filterPending);
-
+            const arrayTest =[]
+            this.state.todosAll.forEach(element => {
+                if(todo.id !== element.id){
+                    return arrayTest.push(element)
+                }
+            });
+            todo['status'] = status;
+            arrayTest.push(todo);
             return setTimeout(() => {
-                return this.setState({ todosDone: filterStatus, todosPending: [...filterPending, todo] })
+                return this.setState({ todosDone: filterStatus,  todosAll: arrayTest})
             }, 1000);
         }
         if (status === 'done') {
             const idTodo = todo.id
-            const filterStatus = this.state.todosDone.filter(todo => todo.id !== idTodo)
-            return this.setState({ todosDone: filterStatus, status })
+            const filterStatus = this.state.todosPending.filter(todo => todo.id !== idTodo)
+            const arrayTest =[]
+            this.state.todosAll.forEach(element => {
+                if(todo.id !== element.id){
+                    return arrayTest.push(element)
+                }
+            });
+            todo['status'] = status;
+            arrayTest.push(todo);
+            return setTimeout(() => {
+                return this.setState({ todosPending: filterStatus,  todosAll: arrayTest})
+            }, 1000);
         }
 
     }
 
 
     render() {
-
         const FilterButtons = () => {
             return (
                 <div className="wrapp-buttons">
