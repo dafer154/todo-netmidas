@@ -43,7 +43,7 @@ class ItemTodo extends Component {
                 <div className="footer-todo">
                     <div className="wrapp-footer">
                         <div className="status">
-                            <span>Status: {labelStatus}</span>
+                            <span>Status: <span className="italic-status">{labelStatus}</span></span>
                         </div>
                         <div className="checkStyle">
                             <input type="checkbox" onChange={this.sendOption} value={status} checked={status === 'done' ? true : false} />

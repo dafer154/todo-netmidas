@@ -11,6 +11,8 @@ export class Home extends Component {
         todosPending: [],
         todosDone: [],
         status: 'all',
+        activeButton: '#ff80b0',
+        colorButton: '#a55372',
     }
 
     componentDidMount() {
@@ -71,20 +73,30 @@ export class Home extends Component {
     }
 
 
+
+
     render() {
         const FilterButtons = () => {
             return (
                 <div className="wrapp-buttons responsive-buttons">
                     {this.state.filters.map(filter => {
                         return (<div key={filter.type} className="container-button">
-                            <button className="button-custon" onClick={() => this.filterTodo(filter.type)}>{filter.name}</button>
+                            <button className="button-custon" style={activeButton} onClick={() => this.filterTodo(filter.type)}>{filter.name}</button>
                         </div>)
                     })}
                 </div>
             )
         }
 
+
+
+
         const { status } = this.state
+
+        const activeButton = {
+            background : `${this.state.activeButton}`,
+            color: `${this.state.colorButton}`
+        }
 
         return (
             <div className="wrapp">

@@ -1,0 +1,25 @@
+.wrapp-chart{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 4%;
+}
+
+.container-title-chart{
+    padding-bottom: 1%;
+    font-size: 42px;
+    color: #ff80b0;
+    font-weight: bold;
+}
+
+
+
+.container-description{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.container-chart{
+    width: 60%;
+}
