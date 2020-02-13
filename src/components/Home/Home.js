@@ -42,31 +42,31 @@ export class Home extends Component {
         if (status === 'pending') {
             const idTodo = todo.id
             const filterStatus = this.state.todosDone.filter(todoFilter => todoFilter.id !== idTodo);
-            const arrayTest = []
-            this.state.todosAll.forEach(element => {
-                if (todo.id !== element.id) {
-                    return arrayTest.push(element)
+
+            const filterAll = this.state.todosAll.map(todoAll =>{
+                if(todoAll.id === todo.id){
+                    todoAll['status'] = status
                 }
+                return todoAll;
             });
-            todo['status'] = status;
-            arrayTest.push(todo);
+
             return setTimeout(() => {
-                return this.setState({ todosDone: filterStatus, todosAll: arrayTest })
+                return this.setState({ todosDone: filterStatus, todosAll: filterAll })
             }, 1000);
         }
         if (status === 'done') {
             const idTodo = todo.id
             const filterStatus = this.state.todosPending.filter(todo => todo.id !== idTodo)
-            const arrayTest = []
-            this.state.todosAll.forEach(element => {
-                if (todo.id !== element.id) {
-                    return arrayTest.push(element)
+            
+            const filterAll = this.state.todosAll.map(todoAll =>{
+                if(todoAll.id === todo.id){
+                    todoAll['status'] = status
                 }
+                return todoAll;
             });
-            todo['status'] = status;
-            arrayTest.push(todo);
+            
             return setTimeout(() => {
-                return this.setState({ todosPending: filterStatus, todosAll: arrayTest })
+                return this.setState({ todosPending: filterStatus, todosAll: filterAll })
             }, 1000);
         }
 

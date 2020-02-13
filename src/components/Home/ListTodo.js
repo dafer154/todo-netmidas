@@ -4,7 +4,6 @@ import './styles/ListTodo.css';
 
 const ListTodo = ({todos, changeTodo}) => {
 
-
     const callBackFunction = (status, todo) =>{
         changeTodo(status, todo);
     }
@@ -15,7 +14,6 @@ const ListTodo = ({todos, changeTodo}) => {
            return <ItemTodo todo={todo} key={todo.id} changeTodo={callBackFunction}/>
         })}
         </div>
-
     )
 }
 

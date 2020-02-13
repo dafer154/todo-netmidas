@@ -5,7 +5,7 @@ import { VictoryLine, VictoryChart, VictoryTooltip } from 'victory';
 
 export class Chart extends Component {
 
-    state = { dataChart: [], title: '', description: '', yaxisLabel: '' }
+    state = { dataChart: [], title: '', description: '' }
 
     componentDidMount() {
 
@@ -18,11 +18,7 @@ export class Chart extends Component {
 
                 const title = res.data.chartPage.title;
                 const description = res.data.chartPage.description;
-                const yaxisLabel = res.data.chartPage.yAxisLabel;
-                console.log(title);
-                console.log(description);
-                console.log(yaxisLabel);
-                return this.setState({ dataChart: arrayChart, title, description, yaxisLabel })
+                return this.setState({ dataChart: arrayChart, title, description})
             })
     }
 
