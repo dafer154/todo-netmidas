@@ -31,7 +31,7 @@ export class Home extends Component {
         if (status === 'done') {
             const filterStatus = this.state.todosAll.filter(todo => todo.status === status)
             return this.setState({ todosDone: filterStatus, status })
-        } else if(status === 'all'){
+        } else if (status === 'all') {
             return this.setState({ status });
         }
     }
@@ -40,31 +40,31 @@ export class Home extends Component {
         if (status === 'pending') {
             const idTodo = todo.id
             const filterStatus = this.state.todosDone.filter(todoFilter => todoFilter.id !== idTodo);
-            const arrayTest =[]
+            const arrayTest = []
             this.state.todosAll.forEach(element => {
-                if(todo.id !== element.id){
+                if (todo.id !== element.id) {
                     return arrayTest.push(element)
                 }
             });
             todo['status'] = status;
             arrayTest.push(todo);
             return setTimeout(() => {
-                return this.setState({ todosDone: filterStatus,  todosAll: arrayTest})
+                return this.setState({ todosDone: filterStatus, todosAll: arrayTest })
             }, 1000);
         }
         if (status === 'done') {
             const idTodo = todo.id
             const filterStatus = this.state.todosPending.filter(todo => todo.id !== idTodo)
-            const arrayTest =[]
+            const arrayTest = []
             this.state.todosAll.forEach(element => {
-                if(todo.id !== element.id){
+                if (todo.id !== element.id) {
                     return arrayTest.push(element)
                 }
             });
             todo['status'] = status;
             arrayTest.push(todo);
             return setTimeout(() => {
-                return this.setState({ todosPending: filterStatus,  todosAll: arrayTest})
+                return this.setState({ todosPending: filterStatus, todosAll: arrayTest })
             }, 1000);
         }
 
@@ -74,7 +74,7 @@ export class Home extends Component {
     render() {
         const FilterButtons = () => {
             return (
-                <div className="wrapp-buttons">
+                <div className="wrapp-buttons responsive-buttons">
                     {this.state.filters.map(filter => {
                         return (<div key={filter.type} className="container-button">
                             <button className="button-custon" onClick={() => this.filterTodo(filter.type)}>{filter.name}</button>
@@ -90,12 +90,20 @@ export class Home extends Component {
             <div className="wrapp">
                 <FilterButtons />
                 {status === 'all' ?
-                    <ListTodo todos={this.state.todosAll} changeTodo={this.callBackFunction} />
+                    (<div className="container-listTodo">
+                        <div className="wrapptitle-list"><span className="title-lisTodo">List All</span></div>
+                        <ListTodo todos={this.state.todosAll} changeTodo={this.callBackFunction} /></div>)
                     : status === 'pending'
-                        ? <ListTodo todos={this.state.todosPending} changeTodo={this.callBackFunction} />
+                        ? (<div className="container-listTodo">
+                            <div className="wrapptitle-list"><span className="title-lisTodo">List {status}</span></div>
+                            <ListTodo todos={this.state.todosPending} changeTodo={this.callBackFunction} /></div>)
                         : status === 'done'
-                            ? <ListTodo todos={this.state.todosDone} changeTodo={this.callBackFunction} />
-                            : <ListTodo todos={this.state.todosAll} changeTodo={this.callBackFunction} />}
+                            ? (<div className="container-listTodo">
+                                <div className="wrapptitle-list"><span className="title-lisTodo">List {status}</span></div>
+                                <ListTodo todos={this.state.todosDone} changeTodo={this.callBackFunction} /></div>)
+                            : (<div className="container-listTodo">
+                                <div className="wrapptitle-list"><span className="title-lisTodo">List All</span></div>
+                                <ListTodo todos={this.state.todosAll} changeTodo={this.callBackFunction} /></div>)}
             </div>
         )
     }
