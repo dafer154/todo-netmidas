@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import './styles/ItemTodo.css';
+import { connect } from 'react-redux';
+import { toggleStatus } from '../../actions/todoActions';
 
 class ItemTodo extends Component {
 
@@ -7,12 +9,16 @@ class ItemTodo extends Component {
 
     sendOption = (e) => {
         const value = e.target.value;
+        console.log("tooodo", this.props.todo.id);
+        console.log('weee', value)
         if (value === 'pending') {
             const value = 'done'
+            // this.props.toggleStatus(value, this.props.todo.id)
             this.setState({ status: value, labelStatus: value })
             this.props.changeTodo(value, this.state.todo);
         } else {
             const value = 'pending'
+            // this.props.toggleStatus(value, this.props.todo.id)
             this.setState({ status: value, labelStatus: value })
             this.props.changeTodo(value, this.state.todo);
         }
@@ -56,4 +62,9 @@ class ItemTodo extends Component {
 
 }
 
-export default ItemTodo
+const mapStateToProps = state => ({
+    status: state.todoReducer.status,
+    labelStatus: state.todoReducer.labelStatus
+})
+
+export default connect(mapStateToProps, { toggleStatus })(ItemTodo)

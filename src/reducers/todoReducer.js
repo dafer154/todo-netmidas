@@ -1,11 +1,13 @@
-import { ALL_TODO, PENDING_TODO, COMPLETE_TODO, CHANGE_FILTER } from '../actions/types';
+import { ALL_TODO, PENDING_TODO, COMPLETE_TODO, CHANGE_FILTER, TOGGLE_STATUS } from '../actions/types';
 
 const initialState = {
     allTodo: [],
     pendingTodo: [],
     completeTodo: [],
     filters: [],
-    status: 'all'
+    status: 'all',
+    uniqueStatus: '',
+    labelStatus: ''
 }
 
 const todoReducer = (state = initialState, action) => {
@@ -35,6 +37,38 @@ const todoReducer = (state = initialState, action) => {
                 ...state,
                 status: action.payload
             }
+        case TOGGLE_STATUS:
+            if(action.status === 'pending'){
+                const filterStatus = state.completeTodo.filter(todoFilter => todoFilter.id !== action.payload);
+
+                const filterAll = state.allTodo.map(todoAll => {
+                    if (todoAll.id === action.payload) {
+                             todoAll['status'] = action.status
+                     }});
+
+                return {
+                    ...state,
+                    completeTodo: filterStatus,
+                    allTodo: filterAll,
+                    status: 'pending'
+                }
+            } else {
+                const filterStatus = state.pendingTodo.filter(todoFilter => todoFilter.id !== action.payload);
+
+                const filterAll = state.allTodo.map(todoAll => {
+                    if (todoAll.id === action.payload) {
+                             todoAll['status'] = action.status
+                     }});
+                     
+                return {
+                    ...state,
+                    pendingTodo: filterStatus,
+                    allTodo: filterAll,
+                    status: 'pending'
+                }
+            }    
+        
+
         default:
             return state
     }
