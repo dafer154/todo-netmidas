@@ -1,4 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import store from './store';
 import './App.css';
 import Header from "./components/Header/Header";
 import { Route, HashRouter } from "react-router-dom";
@@ -7,7 +9,7 @@ import Chart from "./components/Chart/Chart";
 
 class App extends Component {
   render() {
-    return (
+    return (<Provider store={store}>
       <HashRouter basename='/'>
         <div className="App">
           <Header />
@@ -15,6 +17,8 @@ class App extends Component {
           <Route path="/chart" component={Chart} />
         </div>
       </HashRouter>
+    </Provider>
+
     );
   }
 
