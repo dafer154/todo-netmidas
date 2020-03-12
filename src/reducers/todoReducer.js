@@ -26,7 +26,6 @@ const todoReducer = (state = initialState, action) => {
                 status: 'done'
             }
         case PENDING_TODO:
-            console.log('jujuju');
             return {
                 ...state,
                 pendingTodo: state.allTodo.filter(todo => todo.status === action.payload),
@@ -38,36 +37,41 @@ const todoReducer = (state = initialState, action) => {
                 status: action.payload
             }
         case TOGGLE_STATUS:
-            if(action.status === 'pending'){
+            if (action.status === 'pending') {
+                console.log('todos PENDING', state.completeTodo);
                 const filterStatus = state.completeTodo.filter(todoFilter => todoFilter.id !== action.payload);
-
+                console.log('pending REDUX', filterStatus)
                 const filterAll = state.allTodo.map(todoAll => {
                     if (todoAll.id === action.payload) {
-                             todoAll['status'] = action.status
-                     }});
-
+                        todoAll['status'] = action.status
+                    }
+                    return todoAll;
+                });
+                console.log('pending REDUX ALL', filterAll)
                 return {
                     ...state,
                     completeTodo: filterStatus,
                     allTodo: filterAll,
-                    status: 'pending'
+                    status: 'done'
                 }
             } else {
                 const filterStatus = state.pendingTodo.filter(todoFilter => todoFilter.id !== action.payload);
-
+                console.log('todos DONE', filterStatus);
                 const filterAll = state.allTodo.map(todoAll => {
                     if (todoAll.id === action.payload) {
-                             todoAll['status'] = action.status
-                     }});
-                     
+                        todoAll['status'] = action.status
+                    }
+                    return todoAll;
+                });
+
                 return {
                     ...state,
                     pendingTodo: filterStatus,
                     allTodo: filterAll,
                     status: 'pending'
                 }
-            }    
-        
+            }
+
 
         default:
             return state

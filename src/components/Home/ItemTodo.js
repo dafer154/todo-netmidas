@@ -5,7 +5,7 @@ import { toggleStatus } from '../../actions/todoActions';
 
 class ItemTodo extends Component {
 
-    state = { status: this.props.todo.status, labelStatus: this.props.todo.status, todo: this.props.todo }
+    state = { status: this.props.todo.status, labelStatus: this.props.todo.status}
 
     sendOption = (e) => {
         const value = e.target.value;
@@ -13,20 +13,21 @@ class ItemTodo extends Component {
         console.log('weee', value)
         if (value === 'pending') {
             const value = 'done'
-            // this.props.toggleStatus(value, this.props.todo.id)
-            this.setState({ status: value, labelStatus: value })
-            this.props.changeTodo(value, this.state.todo);
+            this.props.toggleStatus(value, this.props.todo.id)
+            // this.setState({ status: value, labelStatus: value })
+            // this.props.changeTodo(value, this.state.todo);
         } else {
             const value = 'pending'
-            // this.props.toggleStatus(value, this.props.todo.id)
-            this.setState({ status: value, labelStatus: value })
-            this.props.changeTodo(value, this.state.todo);
+            this.props.toggleStatus(value, this.props.todo.id)
+            // this.setState({ status: value, labelStatus: value })
+            // this.props.changeTodo(value, this.state.todo);
         }
 
     }
 
     render() {
-        const { status, todo, labelStatus } = this.state
+        const { status, labelStatus } = this.state
+        const {todo} = this.props
 
         const styleBackgroundDone = {
             background: '#a5e3ff'
